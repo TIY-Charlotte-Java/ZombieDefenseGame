@@ -9,9 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * Created by Ben on 5/4/17.
- */
 public class NewScreen implements Screen {
     private Stage stage;
     private Game game;
@@ -23,23 +20,28 @@ public class NewScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage();
+
+        // handles input and stuff
         Gdx.input.setInputProcessor(stage);
 
+
+        // the appearance of the textbutton we're about to use
+        // Gloss over the details of the skin. We're just trying
+        // to display a button.
         Skin uiSkin = new Skin(Gdx.files.internal("skins.json"));
 
         TextButton button = new TextButton("Start New Game", uiSkin);
 
+
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-
-                game.setScreen(new MainScreen());
+                game.setScreen(new MainScreen(game));
             }
         });
 
-        button.setX(100);
-        button.setY(100);
+        button.setX((Gdx.graphics.getWidth() / 2) - (button.getWidth() / 2));
+        button.setY((Gdx.graphics.getHeight() / 2) - (button.getHeight() / 2));
 
         stage.addActor(button);
     }
